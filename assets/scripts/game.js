@@ -2,11 +2,16 @@ var health = 100;
 var healthElem = document.getElementById("health");
 
 function slap() {
-    health--;   
+    health--; 
+    update();  
     /*var num = health.toString();
     alert("Your fitness level is: "+ num);*/
 }
 function update() {
-    healthElem.innerHTML = health.toString();
+    healthElem.innerText = health.toString();
 } 
+
+function punch() {
+    update();
+}
 update();  
