@@ -36,7 +36,13 @@ function checkGameOver() {
         hits = 0;
         health = 100;
         updateHelper();
-    } 
+        document.getElementById("player-panel").classList.remove("panel-danger")
+        
+    } else if (health <= 10 && health > 0) {
+        document.getElementById("player-panel").classList.add("panel-danger")
+    } else {
+        document.getElementById("player-panel").classList.remove("panel-danger")
+    }
 }
 
 function updateName() {
