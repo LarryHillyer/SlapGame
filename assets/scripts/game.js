@@ -5,9 +5,12 @@ var hits = 0;
 var nameElem = document.getElementById("name");
 var healthElem = document.getElementById("health");
 var hitsElem = document.getElementById("hits");
+var imageElem = document.getElementById("image");
 
 var healthProgBarElem = document.getElementById("health-1");
 var hitsProgBarElem = document.getElementById("hits-1");
+
+var firstTime = true;
 
 function slap() {
     health--; 
@@ -58,8 +61,21 @@ function updateHelper() {
     updateHits();
 }
 
+function resetImage() {
+    imageElem.src = "assets/img/Rcd6kLXc9.png";
+}
+
+function splatTimeDelay() {
+    setTimeout(resetImage, [500]);
+}
+
 function update() {
-    updateHelper();    
+    updateHelper();
+    if (firstTime === false) {
+    imageElem.src = "assets/img/Splat.jpg";
+    splatTimeDelay();
+    }
+    firstTime = false;    
     checkGameOver();    
 }
  
