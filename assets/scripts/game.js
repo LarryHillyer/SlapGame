@@ -2,6 +2,13 @@ var name = "RockinSockinMike";
 var health = 100;
 var hits = 0;
 
+var items = {shield:new Item("Shield",0.3,"This is an awesome shield!"),
+            bodyArmor: new Item("Body Armor", 0.4, "This is what I use to rob banks"),
+            helmet: new Item("Helmet", 0.25, "This is the best Helmet available")}
+            
+var player = new Player(name, health, hits, []);
+ 
+
 var nameElem = document.getElementById("name");
 var healthElem = document.getElementById("health");
 var hitsElem = document.getElementById("hits");
@@ -9,6 +16,10 @@ var imageElem = document.getElementById("image");
 
 var healthProgBarElem = document.getElementById("health-1");
 var hitsProgBarElem = document.getElementById("hits-1");
+
+var playerShield = false;
+var playerBodyArmor = false;
+var playerHelmet = false;
 
 var firstTime = true;
 
@@ -90,8 +101,59 @@ function Item(name, modifier, description) {
     this.modifer = modifier;
     this.description = description;
     this.draw = function() {
-        
+        return '<div class="item">'+ this.name +'</div>';    
     }   
+}
+
+function changeItems() {
+    var playerItems = [];
+    if (playerShield) {
+        playerItems.push(items['shield']) 
+    }
+    if (playerBodyArmor) {
+        playerItems.push(items['bodyArmor']) 
+    }   
+    if (playerHelmet) {
+        playerItems.push(items['helmet']) 
+    }   
+    player.items = playerItems;
+    
+}
+
+function isShieldChecked() {
+        if ($("#shield").prop("checked")) {
+            $("#shield").prop("checked", false);
+            playerShield=false;
+        } else {
+            $("#shield").prop("checked", true);
+            playerShield=true;
+        }  
+        $("#shield").prop("checked");
+        changeItems();
+}
+
+function isBodyArmorChecked() {
+        if ($("#body-armor").prop("checked")) {
+            $("#body-armor").prop("checked", false);
+            playerBodyArmor = false;
+        } else {
+            $("#body-armor").prop("checked", true);
+            playerBodyArmor = true;
+        }  
+        $("#body-armor").prop("checked");
+        changeItems();
+}
+
+function isHelmetChecked() {
+        if ($("#helmet").prop("checked")) {
+            $("#helmet").prop("checked", false);
+            playerHelmet = false;
+        } else {
+            $("#helmet").prop("checked", true);
+            playerHelmet = true;
+        }  
+        $("#helmet").prop("checked");
+        changeItems();
 }
 
 function Player(name, health, hits, items) {
@@ -106,16 +168,11 @@ function Player(name, health, hits, items) {
             addMod1 = addMod1 + this.items[i].modifer;      
         }
         return addMod1;
-    }
-    
-    
+    }   
 }
-var items = {shield:new Item("Shield",0.3,"This is an awesome shield!"),
-            bodyArmor: new Item("Body Armor", 0.4, "This is what I use to rob banks"),
-            helmet: new Item("Helmet", 0.25, "This is the best Helmet available")}
-            
-var player = new Player(name, health, hits, [items.helmet, items.bodyArmor]);
- 
+
+
+
 $('.progress-bar-health').css('width', player.health.toString()+'%').attr('aria-valuenow', player.health.toString());
 $('.progress-bar-hits').css('width', player.hits +'%').attr('aria-valuenow', player.hits);
 update(); 
